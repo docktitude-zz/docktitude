@@ -1,0 +1,93 @@
+plugins {
+    id 'java'
+    id 'nebula.ospackage' version '3.2.1'
+    id 'com.github.johnrengelman.shadow' version '1.2.2'
+}
+
+version = '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'commons-cli', name: 'commons-cli', version: '1.3.1'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': "$project.name",
+                'Implementation-Version': "$version",
+                'Built-By': "$project.name",
+                'Built-Date': new Date(),
+                'Built-JDK': System.getProperty('java.version'),
+                'Main-Class': 'com.docktitude.Launcher',
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' ')
+    }
+}
+
+task copyLicense(type: Copy) {
+    sourceSets.main.resources.srcDirs = ["."]
+    sourceSets.main.resources.includes = ["LICENSE", "NOTICE"]
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+ospackage {
+    packageName = "$project.name"
+    license = 'Apache 2.0'
+    version = "$project.version"
+    vendor = "$project.name"
+    os = LINUX
+    maintainer = 'support@docktitude.io'
+    priority = 'extra'
+    recommends('docker-engine')
+    recommends('bash-completion')
+
+    from(jar.outputs.files) {
+        into '/usr/lib/docktitude'
+        rename '(.+)-(.+)', '$1.jar'
+    }
+    from(configurations.runtime) {
+        into '/usr/lib/docktitude'
+    }
+    from('scripts/docktitude') {
+        into '/usr/bin'
+        fileMode 0755
+    }
+    from('scripts/docktitude_completion') {
+        addParentDirs false
+        into '/etc/bash_completion.d'
+        rename { String fileName ->
+            fileName.replace('_completion', '')
+        }
+        fileMode 0644
+    }
+}
+
+buildDeb {
+    arch = 'amd64'
+    recommends('openjdk-8-jre')
+    doLast {
+        ant.checksum file: it.archivePath
+    }
+}
+
+buildRpm {
+    arch = 'X86_64'
+    recommends('java-1.8.0-openjdk')
+    doLast {
+        ant.checksum file: it.archivePath
+    }
+}
+
+task buildBinary(type: Exec) {
+    executable "sh"
+    args "-c", "scripts/build_binary.sh $version"
+}
