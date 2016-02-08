@@ -1,28 +1,38 @@
-\title{\includegraphics{logo.png}\\ The Easy Way to Build your Docker images Hierarchy}
-\date{}
-\maketitle
+# Docktitude: The Easy Way to Build your Docker images Hierarchy
+
+![](docs/docktitude-logo.png "Docktitude")
 
 
 
 # Requirements
 
 ## For Linux packages or binary version
-- OpenJDK8 (JRE or any Java v1.8 set in the PATH environment variable)
-- Docker (to run the commands based on Docker)
+- Any Java v1.8+ set in the PATH environment variable
+- Download: [OpenJDK](http://openjdk.java.net/install/index.html) | [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-## For the Docker image
-- Docker
+## Docker
+- Obviously you need it :)
+- Download: [Docker](https://www.docker.com)
+
+
+# Linux packages and tarball
+
+* [docktitude_1.0.0_amd64.deb](distributions/docktitude_1.0.0_amd64.deb) ([md5](distributions/docktitude_1.0.0_amd64.deb.MD5))
+* [docktitude-1.0.0.x86_64.rpm](distributions/docktitude-1.0.0.x86_64.rpm) ([md5](distributions/docktitude-1.0.0.x86_64.rpm.MD5))
+* [docktitude-1.0.0-bin.tar.gz](distributions/docktitude-1.0.0-bin.tar.gz) ([md5](distributions/docktitude-1.0.0-bin.tar.gz.MD5))
 
 
 # Installation
 
 - Debian, Ubuntu, ...
 ```
+$> apt-get install bash-completion
 $> dpkg -i docktitude_1.0.0_amd64.deb
 ```
 
 - Centos, Fedora, ...
 ```
+$> yum install bash-completion
 $> rpm -ivh docktitude-1.0.0.x86_64.rpm
 ```
 
@@ -36,8 +46,8 @@ $> tar xzf docktitude-1.0.0-bin.tar.gz
 $> docker run -it --rm --name docktitude \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -v $(which docker):/bin/docker \
-  -v $HOME/docker-contexts:/docker-contexts \
-  docktitude:latest
+  -v your-docker-contexts-dir:/docker-contexts \
+  docktitude
 ```
 
 
@@ -47,33 +57,8 @@ $> docker run -it --rm --name docktitude \
 2. **docktitude config** *(check the computed tags for the build according to the contexts naming convention)*
 3. **docktitude upgrade** *(cascade build: from the root to the leafs)*
 
-\pagebreak
 
 # Usage examples
-
-```java
-$> docktitude --help
-usage: docktitude [--help] <command> [<args>]
-
-Commands:
-   build <context>    Build context Docker image
-   clean              Remove exited Docker containers and useless images
-                      Use -v to remove the associated volumes
-   config             List auto-configured Docker images building tags
-   export             Export all contexts except binaries to a tar archive
-   info               Show information relating to the Dockerfile files
-   op <name>          Change maintainer information in the Dockerfile files
-   print <context>    Show context Dockerfile
-   script <context>   Show shell script for defined docktitude script tags
-   snapshot           Display Docker images and save the selected one (.tar)
-   status             Show local Docker images update status
-   tree               List Docker images in a tree-like format
-   update             Update external Docker images
-   upgrade            Build cascade local Docker images
-   version            Show version information
-```
-
-\pagebreak
 
 ```bash
 $> docktitude tree
@@ -105,7 +90,6 @@ $> docktitude tree
     +-- demo
 ```
 
-\pagebreak
 
 ```bash
 $> docktitude print app1
@@ -118,9 +102,10 @@ MAINTAINER demo@docktitude.io
 
 # Hierarchy demo
 --------------------------------
+```
 
 
-
+```bash
 $> docktitude script libreoffice
 --------------------------------
 +++ libreoffice [ SHELL SCRIPT ]
@@ -135,12 +120,32 @@ docker run -it --rm --name libreoffice \
   -v /etc/localtime:/etc/localtime:ro \
   libreoffice
 --------------------------------
-
-
-
-
 ```
 
+
+# Documentation
+
+```java
+$> docktitude --help
+usage: docktitude [--help] <command> [<args>]
+
+Commands:
+   build <context>    Build context Docker image
+   clean              Remove exited Docker containers and useless images
+                      Use -v to remove the associated volumes
+   config             List auto-configured Docker images building tags
+   export             Export all contexts except binaries to a tar archive
+   info               Show information relating to the Dockerfile files
+   op <name>          Change maintainer information in the Dockerfile files
+   print <context>    Show context Dockerfile
+   script <context>   Show shell script for defined docktitude script tags
+   snapshot           Display Docker images and save the selected one (.tar)
+   status             Show local Docker images update status
+   tree               List Docker images in a tree-like format
+   update             Update external Docker images
+   upgrade            Build cascade local Docker images
+   version            Show version information
+```
 
 
 # Licensing
