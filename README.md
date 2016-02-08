@@ -1,28 +1,21 @@
 # Docktitude - The Easy Way to Build your Docker images Hierarchy
 
-![](docs/docktitude-logo.png "Docktitude")
+![](docs/docktitude-logo.png "http://docktitude.io")
 
 
 
-# Requirements
+## Requirements
 
-## For Linux packages or binary version
+### For Linux packages or binary version
 - Any Java v1.8+ set in the PATH environment variable
 - Download: [OpenJDK](http://openjdk.java.net/install/index.html) | [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
 
-## Docker
+### Docker
 - Obviously you need it :)
 - Download: [Docker](https://www.docker.com)
 
 
-# Linux packages and tarball
-
-* [docktitude_1.0.0_amd64.deb](http://docktitude.io/get/docktitude_1.0.0_amd64.deb) ([md5](http://docktitude.io/get/docktitude_1.0.0_amd64.deb.MD5))
-* [docktitude-1.0.0.x86_64.rpm](http://docktitude.io/get/docktitude-1.0.0.x86_64.rpm) ([md5](http://docktitude.io/get/docktitude-1.0.0.x86_64.rpm.MD5))
-* [docktitude-1.0.0-bin.tar.gz](http://docktitude.io/get/docktitude-1.0.0-bin.tar.gz) ([md5](http://docktitude.io/get/docktitude-1.0.0-bin.tar.gz.MD5))
-
-
-# Installation
+## Installation
 
 - Debian, Ubuntu, ...
 ```
@@ -51,14 +44,14 @@ $> docker run -it --rm --name docktitude \
 ```
 
 
-# Getting started
+## Getting started
 
 1. **cd docker-contexts** *(where you store your Docker contexts)*
 2. **docktitude config** *(check the computed tags for the build according to the contexts naming convention)*
 3. **docktitude upgrade** *(cascade build: from the root to the leafs)*
 
 
-# Usage examples
+## Usage examples
 
 ```bash
 $> docktitude tree
@@ -123,7 +116,7 @@ docker run -it --rm --name libreoffice \
 ```
 
 
-# Documentation
+## Documentation
 
 ```java
 $> docktitude --help
@@ -148,6 +141,6 @@ Commands:
 ```
 
 
-# Licensing
+## Licensing
 
 Docktitude is licensed under Apache License, Version 2.0.
