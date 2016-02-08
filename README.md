@@ -17,9 +17,9 @@
 
 # Linux packages and tarball
 
-* [docktitude_1.0.0_amd64.deb](distributions/docktitude_1.0.0_amd64.deb) ([md5](distributions/docktitude_1.0.0_amd64.deb.MD5))
-* [docktitude-1.0.0.x86_64.rpm](distributions/docktitude-1.0.0.x86_64.rpm) ([md5](distributions/docktitude-1.0.0.x86_64.rpm.MD5))
-* [docktitude-1.0.0-bin.tar.gz](distributions/docktitude-1.0.0-bin.tar.gz) ([md5](distributions/docktitude-1.0.0-bin.tar.gz.MD5))
+* [docktitude_1.0.0_amd64.deb](http://docktitude.io/get/docktitude_1.0.0_amd64.deb) ([md5](http://docktitude.io/get/docktitude_1.0.0_amd64.deb.MD5))
+* [docktitude-1.0.0.x86_64.rpm](http://docktitude.io/get/docktitude-1.0.0.x86_64.rpm) ([md5](http://docktitude.io/get/docktitude-1.0.0.x86_64.rpm.MD5))
+* [docktitude-1.0.0-bin.tar.gz](http://docktitude.io/get/docktitude-1.0.0-bin.tar.gz) ([md5](http://docktitude.io/get/docktitude-1.0.0-bin.tar.gz.MD5))
 
 
 # Installation
