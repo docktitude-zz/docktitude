@@ -21,7 +21,7 @@ RUN echo "deb http://httpredir.debian.org/debian jessie-backports main contrib" 
  && apt-get install -qqy xz-utils sudo locales bash-completion openjdk-8-jre-headless curl --no-install-recommends \
  && locale-gen en_US.UTF-8 \
  && localedef -c -f UTF-8 -i en_US en_US.UTF-8 \
- && curl -L http://docktitude.io/get/docktitude_${DOCKTITUDE_VERSION}_amd64.deb -o /tmp/docktitude.deb \
+ && curl -L https://github.com/docktitude/docktitude/releases/download/v${DOCKTITUDE_VERSION}/docktitude_${DOCKTITUDE_VERSION}_amd64.deb -o /tmp/docktitude.deb \
  && dpkg -i /tmp/docktitude.deb \
  && echo ". /etc/bash_completion.d/docktitude" >> /etc/bash.bashrc \
  && mkdir /docker-contexts \
