@@ -5,7 +5,7 @@
 #@  -v /var/run/docker.sock:/var/run/docker.sock \
 #@  -v $(which docker):/bin/docker \
 #@  -v your-docker-contexts-dir:/docker-contexts \
-#@  docktitude
+#@  docktitude/docktitude
 #@DOCKTITUDE-SCRIPT--]
 #
 #
