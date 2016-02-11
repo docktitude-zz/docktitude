@@ -20,20 +20,20 @@ import java.util.List;
 
 interface Command {
 
-	String[] FIND = new String[]{"sudo", "bash", "-c", "find . -type f -name \"Dockerfile\" 2>/dev/null"};
+	String[] FIND = new String[]{"bash", "-c", "find . -type f -name \"Dockerfile\" 2>/dev/null"};
 
-	String[] IMAGES = new String[]{"sudo", "bash", "-c", "docker images | awk -F ' ' '{print $1\":\"$2}' | awk 'NR != 1' | sort | uniq -u | grep -v \"<none>:<none>\""};
-	String[] IMAGES_IDS = new String[]{"sudo", "bash", "-c", "docker images | awk -F ' ' '{print $1\":\"$2\"+\"$3}' | awk 'NR != 1' | sort | uniq -u | grep -v \"<none>:<none>\""};
+	String[] IMAGES = new String[]{"bash", "-c", "docker images | awk -F ' ' '{print $1\":\"$2}' | awk 'NR != 1' | sort | uniq -u | grep -v \"<none>:<none>\""};
+	String[] IMAGES_IDS = new String[]{"bash", "-c", "docker images | awk -F ' ' '{print $1\":\"$2\"+\"$3}' | awk 'NR != 1' | sort | uniq -u | grep -v \"<none>:<none>\""};
 
-	String[] RM0 = new String[]{"sudo", "bash", "-c", "echo $(sudo docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}') | awk /./"};
-	String[] RM = new String[]{"sudo", "bash", "-c", "docker rm $(sudo docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}')"};
-	String[] RMV = new String[]{"sudo", "bash", "-c", "docker rm -v $(sudo docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}')"};
-	String[] RMI0 = new String[]{"sudo", "bash", "-c", "echo $(sudo docker images | grep '<none>' | awk -F ' ' '{print $3}') | awk /./"};
-	String[] RMI = new String[]{"sudo", "bash", "-c", "docker rmi $(sudo docker images | grep '<none>' | awk -F ' ' '{print $3}')"};
+	String[] RM0 = new String[]{"bash", "-c", "echo $(docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}') | awk /./"};
+	String[] RM = new String[]{"bash", "-c", "docker rm $(docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}')"};
+	String[] RMV = new String[]{"bash", "-c", "docker rm -v $(docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}')"};
+	String[] RMI0 = new String[]{"bash", "-c", "echo $(docker images | grep '<none>' | awk -F ' ' '{print $3}') | awk /./"};
+	String[] RMI = new String[]{"bash", "-c", "docker rmi $(docker images | grep '<none>' | awk -F ' ' '{print $3}')"};
 
 	String[] EXPORT = new String[]{"bash", "-c", "find . -size -3000k -exec file {} \\; | grep text | cut -d: -f1 | tar -cJ -f export.tar.xz -T -"};
 
-	List<String> SUDO = Arrays.asList("sudo", "bash", "-c");
+	List<String> BASH = Arrays.asList("bash", "-c");
 
 	String PULL = "docker pull ?";
 	String HISTORY = "docker history -q ?";

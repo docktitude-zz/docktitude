@@ -33,13 +33,13 @@ public interface Executable {
 	}
 
 	static void execWithPattern(final boolean showCommand, final String command, final String value) throws Exception {
-		final List<String> params = new ArrayList<>(Command.SUDO);
+		final List<String> params = new ArrayList<>(Command.BASH);
 		params.add(Printable.sanitize(command.replace(Constant.QMK, value)));
 		exec(showCommand, params.toArray(new String[params.size()]));
 	}
 
 	static List<String> execWithPatternAndResults(final String command, final String value) throws Exception {
-		final List<String> params = new ArrayList<>(Command.SUDO);
+		final List<String> params = new ArrayList<>(Command.BASH);
 		params.add(Printable.sanitize(command.replace(Constant.QMK, value)));
 		return execWithResultsAsList(params.toArray(new String[params.size()]));
 	}
@@ -67,10 +67,20 @@ public interface Executable {
 
 	static Stream<String> execWithResultsAsStream(final String... command) throws Exception {
 		final ProcessBuilder builder = new ProcessBuilder(command);
+		builder.redirectErrorStream(true);
 		final java.lang.Process p = builder.start();
 		p.waitFor();
 
-		final BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-		return reader.lines();
+		final BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+		final Stream<String> stream = br.lines();
+		final List<String> l = stream.collect(Collectors.toList());
+
+		l.forEach(s -> {
+			if (s.contains(Constant.Msg.NO_DOCKER_DAEMON)) {
+				Printable.print(Constant.Msg.NO_PRIVILEGE);
+				System.exit(0);
+			}
+		});
+		return l.stream();
 	}
 }

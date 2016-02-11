@@ -33,7 +33,7 @@ import java.util.stream.Stream;
 
 public final class Engine {
 
-	private static final String VERSION = "1.0.0";
+	private static final String VERSION = "1.1.0";
 
 	private Engine() {
 	}

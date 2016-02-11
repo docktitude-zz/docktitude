@@ -65,6 +65,9 @@ public interface Constant {
 		String NO_CTX = "!!! NO DOCKER CONTEXT FOUND IN THE CURRENT DIRECTORY !!!";
 		String DUPLICATED_CTX = "!!! DUPLICATED DOCKER CONTEXTS FOUND !!!";
 
+		String NO_DOCKER_DAEMON = "Cannot connect to the Docker daemon";
+		String NO_PRIVILEGE = "An error occurred. Are you root? Use sudo to run a command with root privileges.";
+
 		String UPGRADE_REQUIRED = "parent image updated [%s] | Upgrade required";
 		String PARENT_NOT_FOUND = "<<parent image>> not found !";
 		String IMAGE_NOT_FOUND = "image not available | Build OK ?";
