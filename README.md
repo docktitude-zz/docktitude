@@ -20,18 +20,18 @@
 - Debian, Ubuntu, ...
 ```
 $> apt-get install bash-completion
-$> dpkg -i docktitude_1.0.0_amd64.deb
+$> dpkg -i docktitude_1.1.0_amd64.deb
 ```
 
 - Centos, Fedora, ...
 ```
 $> yum install bash-completion
-$> rpm -ivh docktitude-1.0.0.x86_64.rpm
+$> rpm -ivh docktitude-1.1.0.x86_64.rpm
 ```
 
 - Binary
 ```
-$> tar xzf docktitude-1.0.0-bin.tar.gz
+$> tar xzf docktitude-1.1.0-bin.tar.gz
 ```
 
 - Docker image
