@@ -13,7 +13,7 @@
 FROM debian:latest
 MAINTAINER support@docktitude.io
 
-ENV DOCKTITUDE_VERSION 1.0.0
+ENV DOCKTITUDE_VERSION 1.1.0
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "deb http://httpredir.debian.org/debian jessie-backports main contrib" >> /etc/apt/sources.list \
