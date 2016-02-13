@@ -34,7 +34,7 @@ $> rpm -ivh docktitude-1.1.0.x86_64.rpm
 $> tar xzf docktitude-1.1.0-bin.tar.gz
 ```
 
-- Docker image
+- Docker image [![](https://badge.imagelayers.io/docktitude/docktitude:latest.svg)](https://imagelayers.io/?images=docktitude/docktitude:latest 'Get your own badge on imagelayers.io')
 ```
 $> docker run -it --rm --name docktitude \
   -v /var/run/docker.sock:/var/run/docker.sock \
