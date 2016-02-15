@@ -18,7 +18,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "deb http://httpredir.debian.org/debian jessie-backports main contrib" >> /etc/apt/sources.list \
  && apt-get update -qq \
- && apt-get install -qqy xz-utils sudo locales bash-completion openjdk-8-jre-headless curl --no-install-recommends \
+ && apt-get install -qqy libapparmor1 xz-utils locales bash-completion openjdk-8-jre-headless curl --no-install-recommends \
  && locale-gen en_US.UTF-8 \
  && localedef -c -f UTF-8 -i en_US en_US.UTF-8 \
  && curl -L https://github.com/docktitude/docktitude/releases/download/v${DOCKTITUDE_VERSION}/docktitude_${DOCKTITUDE_VERSION}_amd64.deb -o /tmp/docktitude.deb \
