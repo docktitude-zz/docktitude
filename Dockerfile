@@ -10,7 +10,7 @@
 #
 #
 #
-FROM debian:latest
+FROM debian:8.3
 MAINTAINER support@docktitude.io
 
 ENV DOCKTITUDE_VERSION 1.1.0
