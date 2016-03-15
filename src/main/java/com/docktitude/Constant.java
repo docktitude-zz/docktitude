@@ -75,7 +75,7 @@ public interface Constant {
 		String NOTHING_TO_REPORT = "nothing to upgrade";
 
 		String NO_IMG = "!!! NO DOCKER IMAGE FOUND !!!";
-		String PROMPT_IMG = "Image to save [1-9]*: ";
+		String PROMPT_IMG = "Image to save (choose a number): ";
 		String PROMPT_NO_ENTRY = "No entry for: %s";
 
 		String GENERIC_ERROR = "Unable to execute this command ... An error occurred.";

@@ -172,11 +172,4 @@ public interface Printable {
 		return text;
 	}
 
-	/*static void printContentSyntax(final Map<String, String> m) {
-		final StringBuilder builder = new StringBuilder("final Map<String, String> m = new HashMap<>();\n");
-		m.entrySet().stream()
-				.sorted((x, y) -> x.getKey().compareTo(y.getKey()))
-				.forEach(e -> builder.append(String.format("m.put(\"%s\", \"%s\");\n", e.getKey(), e.getValue())));
-		print(builder.toString());
-	}*/
 }
