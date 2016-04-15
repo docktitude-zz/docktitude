@@ -42,7 +42,6 @@ $> docker run -it --rm --name docktitude \
   -v your-docker-contexts-dir:/docker-contexts \
   docktitude/docktitude
 ```
-[![](https://badge.imagelayers.io/docktitude/docktitude:latest.svg)](https://imagelayers.io/?images=docktitude/docktitude:latest 'Get your own badge on imagelayers.io')
 
 
 ## Getting started
