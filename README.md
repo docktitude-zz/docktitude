@@ -4,33 +4,6 @@
 
 
 
-## Requirements
-
-### Node.js (v4.4.3+)
-- Download: [Node.js](https://nodejs.org)
-
-### Docker
-- Obviously you need it :)
-- Download: [Docker](https://www.docker.com)
-
-
-## Installation
-
-- Node.js package
-```
-$> npm install -g docktitude
-```
-
-- Docker image
-```
-$> docker run -it --rm --name docktitude \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  -v $(which docker):/bin/docker \
-  -v your-docker-contexts-dir:/docker-contexts \
-  docktitude/docktitude
-```
-
-
 ## Getting started
 
 1. **cd docker-contexts** *(where you store your Docker contexts)*
