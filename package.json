@@ -1,0 +1,50 @@
+{
+  "name": "docktitude",
+  "version": "2.0.1",
+  "description": " Docktitude - The Easy Way to Build your Docker images Hierarchy",
+  "main": "main.js",
+  "bin": "./bin/docktitude",
+  "scripts": {
+    "clean": "rm -rf lib/ build/ main.js",
+    "tsc": "tsc",
+    "lint": "jshint build/lib/**/*.js build/main.js",
+    "uglify": "gulp",
+    "build": "npm run clean && npm run tsc && npm run lint && npm run uglify",
+    "pretest": "npm run build",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/docktitude/docktitude"
+  },
+  "engines": {
+    "node": ">= 4.4.3"
+  },
+  "os": [
+    "darwin",
+    "linux"
+  ],
+  "keywords": [
+    "docker",
+    "container",
+    "hierarchy",
+    "dependencies",
+    "build"
+  ],
+  "author": {
+    "name": "Docktitude",
+    "email": "contact@docktitude.io",
+    "url": "http://docktitude.io"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/docktitude/docktitude/issues"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.2",
+    "mocha": "^2.4.5"
+  }
+}

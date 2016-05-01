@@ -6,9 +6,8 @@
 
 ## Requirements
 
-### For Linux packages or binary version
-- Any Java v1.8+ set in the PATH environment variable
-- Download: [OpenJDK](http://openjdk.java.net/install/index.html) | [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html)
+### Node.js (v4.4.3+)
+- Download: [Node.js](https://nodejs.org)
 
 ### Docker
 - Obviously you need it :)
@@ -17,21 +16,9 @@
 
 ## Installation
 
-- Debian, Ubuntu, ...
+- Node.js package
 ```
-$> apt-get install bash-completion
-$> dpkg -i docktitude_1.1.0_amd64.deb
-```
-
-- Centos, Fedora, ...
-```
-$> yum install bash-completion
-$> rpm -ivh docktitude-1.1.0.x86_64.rpm
-```
-
-- Binary
-```
-$> tar xzf docktitude-1.1.0-bin.tar.gz
+$> npm install -g docktitude
 ```
 
 - Docker image
