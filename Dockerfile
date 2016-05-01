@@ -16,8 +16,7 @@ MAINTAINER support@docktitude.io
 ENV DOCKTITUDE_VERSION 2.0.0
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN echo "deb http://httpredir.debian.org/debian jessie-backports main contrib" >> /etc/apt/sources.list \
- && apt-get update -qq \
+RUN apt-get update -qq \
  && apt-get install -qqy libapparmor1 locales bash-completion --no-install-recommends \
  && locale-gen en_US.UTF-8 \
  && localedef -c -f UTF-8 -i en_US en_US.UTF-8 \
