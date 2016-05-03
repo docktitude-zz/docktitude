@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-export const SEED: string = '.';
-export const EMPTY: string = '';
-export const SPACE: string = ' ';
-export const STAR: string = '*';
+export const SEED: string = ".";
+export const EMPTY: string = "";
+export const SPACE: string = " ";
+export const STAR: string = "*";
 
-export const BRANCH0: string = '\u2502'; // |
-export const BRANCH1: string = '\u2514\u2500\u2500'; // L
-export const BRANCH2: string = '\u251C\u2500\u2500'; // T
+export const BRANCH0: string = "\u2502"; // |
+export const BRANCH1: string = "\u2514\u2500\u2500"; // L
+export const BRANCH2: string = "\u251C\u2500\u2500"; // T
 
 export const TAB_SIZE: number = 4;

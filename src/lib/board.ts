@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import c = require('./constant');
-import util = require('./util');
-import { BiConsumer, Callback, Indexed, Map } from './common';
+import c = require("./constant");
+import util = require("./util");
+import { BiConsumer, Callback, Indexed, Map } from "./common";
 
-//#############################################################################
+// #############################################################################
 
 interface MetaData {
     kMax: number;
@@ -29,7 +29,7 @@ interface MetaData {
     keys: string[];
 }
 
-//#############################################################################
+// #############################################################################
 
 export function print1<V extends Indexed>(map: Map<V>, legend?: string, printer: Callback<string> = util.println): void {
     const md: MetaData = computeColsWidth(map, legend);
@@ -37,7 +37,7 @@ export function print1<V extends Indexed>(map: Map<V>, legend?: string, printer:
 
     const filler: Callback<string> = (k: string) => {
         printer(`| ${k + util.repeat(c.SPACE, md.kMax - k.length)} |`);
-    }
+    };
 
     printer(border);
     for (let key of md.keys) {
@@ -56,7 +56,7 @@ export function print2<V extends Indexed>(map: Map<V>, kTitle?: string, vTitle?:
 
     const filler: BiConsumer<string, string> = (k: string, v: string) => {
         printer(`| ${k + util.repeat(c.SPACE, md.kMax - k.length)} | ${v + util.repeat(c.SPACE, md.vMax - v.length)} |`);
-    }
+    };
 
     if (md.detailed) {
         printer(border);
