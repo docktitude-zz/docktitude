@@ -70,6 +70,7 @@ export const DUPLICATED_CTX: string = "Duplicated docker context found !";
 export const NO_CTX: string = "No Docker context found in the current directory !";
 export const NO_ENTRY_FOUND: string = "No entry found for '%s' !";
 export const NO_SCRIPT_DEFINED: string = `No ${DOCKTITUDE} script tags defined !`;
+export const NO_PERM: string = `${DOCKTITUDE}: Are you root?`;
 
 export const DEFAULT_COL_PADDING: number = 2;
 export const ARGS_PROCESS_START_INDEX: number = 2;
