@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import constant = require('./lib/constant');
-import util = require('./lib/util');
-import tree = require('./lib/tree');
-import board = require('./lib/board');
-import { TreeDataHolder } from './lib/tree/dataholder';
-import { Command, Usage } from './lib/command';
-import { BiConsumer, Callback, Indexed, NumericKeyMap, StringKeyMap } from './lib/common';
+import constant = require("./lib/constant");
+import util = require("./lib/util");
+import tree = require("./lib/tree");
+import board = require("./lib/board");
+import { TreeDataHolder } from "./lib/tree/dataholder";
+import { Command, Usage } from "./lib/command";
+import { BiConsumer, Callback, Indexed, NumericKeyMap, StringKeyMap } from "./lib/common";
 
-import fs = require('fs');
-import path = require('path');
-import readline = require('readline');
+import fs = require("fs");
+import path = require("path");
+import readline = require("readline");
 
-//#############################################################################
+// #############################################################################
 
 function parseArgs(): void {
     const args: string[] = process.argv.slice(constant.ARGS_PROCESS_START_INDEX);
@@ -38,7 +38,7 @@ function parseArgs(): void {
         const index: number = Command[args[0]];
         switch (index) {
             case Command.build: { build(checkArg(args)); break; }
-            case Command.clean: { clean(args.length > 1 && args[1] === '-v'); break; }
+            case Command.clean: { clean(args.length > 1 && args[1] === "-v"); break; }
             case Command.config: { printConfig(); break; }
             case Command.export: { exportContexts(); break; }
             case Command.info: { printInfo(); break; }
@@ -100,7 +100,7 @@ function printStatus(): void {
         else {
             util.println(constant.NOTHING_TO_REPORT);
         }
-    }
+    };
     tree.generateTreeData(f);
 }
 
@@ -116,7 +116,7 @@ function printScript(ctx: string, printer: Callback<string> = util.println): voi
             (util.containsString(constant.END_TEMPLATE_SCRIPT, content[content.length - 1]))) {
 
             printer(constant.SECTION);
-            printer(`+++ ${ctx} [ SHELL SCRIPT ]`)
+            printer(`+++ ${ctx} [ SHELL SCRIPT ]`);
             printer(constant.SECTION);
 
             for (let i: number = 1; i < content.length - 1; i++) {
@@ -132,7 +132,7 @@ function printScript(ctx: string, printer: Callback<string> = util.println): voi
         else {
             printer(constant.NO_SCRIPT_DEFINED);
         }
-    }
+    };
     useContext(ctx, f);
 }
 
@@ -169,8 +169,8 @@ function changeMaintainer(maintainer: string): void {
 
 function exportContexts(): void {
     tree.findContexts((contextsByName: StringKeyMap<tree.Context>) => {
-        //TODO Consider yml files as non binary
-        util.runSync('find . -size -3000k -exec file {} \\; | grep text | cut -d: -f1 | tar -cJ -f export.tar.xz -T -');
+        // TODO Consider yml files as non binary
+        util.runSync("find . -size -3000k -exec file {} \\; | grep text | cut -d: -f1 | tar -cJ -f export.tar.xz -T -");
     });
 }
 
@@ -189,7 +189,7 @@ function printConfig(): void {
 function build(ctx: string): void {
     const f = (ctx: string, contextsByName: StringKeyMap<tree.Context>): void => {
         util.runSync(`docker build -t "${contextsByName[ctx].tag}" ${contextsByName[ctx].paths[0]}`, true);
-    }
+    };
     useContext(ctx, f);
 }
 
@@ -197,8 +197,8 @@ function readDockerfile(ctx: string, dirpath: string): void {
     const filepath: string = path.join(dirpath, constant.DOCKERFILE);
 
     const stream: fs.ReadStream = fs.createReadStream(filepath, {
-        'encoding': constant.ENCODING_UTF8,
-        'autoClose': true
+        "encoding": constant.ENCODING_UTF8,
+        "autoClose": true
     });
 
     util.println(constant.SECTION);
@@ -206,18 +206,18 @@ function readDockerfile(ctx: string, dirpath: string): void {
     util.println(`[${filepath}]`);
     util.println(constant.SECTION);
 
-    stream.on('data', (chunck: string): void => {
+    stream.on("data", (chunck: string): void => {
         util.print(chunck);
     });
-    stream.on('end', () => {
+    stream.on("end", () => {
         util.println(constant.SECTION);
-    })
+    });
 }
 
 function printContext(ctx: string): void {
     const f = (ctx: string, contextsByName: StringKeyMap<tree.Context>): void => {
         readDockerfile(ctx, contextsByName[ctx].paths[0]);
-    }
+    };
     useContext(ctx, f);
 }
 
@@ -244,7 +244,7 @@ function upgrade(): void {
                 util.runSync(`docker build -t "${ctx.tag}" ${ctx.paths[0]}`, true);
             }
         });
-    }
+    };
     tree.generateTreeData(f);
 }
 
@@ -253,7 +253,7 @@ function update(): void {
 
     const dumpImages = (images: string[]) => {
         registryImages = images.slice();
-    }
+    };
 
     const updateImages = (contextsByName: StringKeyMap<tree.Context>) => {
         const localTags: string[] = [];
@@ -269,11 +269,11 @@ function update(): void {
         for (let img of filteredImages) {
             util.runSync(`docker pull ${img}`);
         }
-    }
+    };
 
     const findContexts = () => {
         tree.findContexts(updateImages);
-    }
+    };
 
     util.runAsync("docker images | awk -F ' ' '{print $1\":\"$2}' | awk 'NR != 1' | sort | uniq -u | grep -v \"<none>:<none>\"",
         dumpImages,
@@ -296,17 +296,17 @@ function clean(removeVolumes: boolean): void {
             }
         }
         util.apply(findGhostImages);
-    }
+    };
 
     const findGhostImages = () => {
         util.runAsync("echo $(docker images | grep '<none>' | awk -F ' ' '{print $3}') | awk /./", rmi);
-    }
+    };
 
     const rmi = (ghostImages: string[]) => {
         if (ghostImages.length > 0) {
             util.runSync("docker rmi $(docker images | grep '<none>' | awk -F ' ' '{print $3}')");
         }
-    }
+    };
 
     util.runAsync("echo $(docker ps -a | grep 'Exited' | awk -F ' ' '{print $1}') | awk /./", rm);
 }
@@ -326,28 +326,28 @@ function checkArg(args: string[], joined: boolean = false): string {
 }
 
 function buildUsage(): Usage {
-    const u = new Usage('usage: docktitude [help] <command> [<args>]\n\nCommands:');
-    u.add(Command.build, 'Build context Docker image', 'context');
-    u.add(Command.clean, 'Remove exited Docker containers and useless images\nUse -v to remove the associated volumes');
-    u.add(Command.config, 'List auto-configured Docker images building tags');
-    u.add(Command.export, 'Export all contexts except binaries to a tar archive');
-    u.add(Command.info, 'Show information relating to the Dockerfile files');
-    u.add(Command.op, 'Change maintainer information in the Dockerfile files', 'name');
-    u.add(Command.print, 'Show context Dockerfile', 'context');
-    u.add(Command.script, 'Show shell script for defined docktitude script tags', 'context');
-    u.add(Command.snapshot, 'Display Docker images and save the selected one (.tar)');
-    u.add(Command.status, 'Show local Docker images update status');
-    u.add(Command.tree, 'List Docker images in a tree-like format');
-    u.add(Command.update, 'Update external Docker images');
-    u.add(Command.upgrade, 'Build cascade local Docker images');
-    u.add(Command.version, 'Show version information');
+    const u = new Usage("usage: docktitude [help] <command> [<args>]\n\nCommands:");
+    u.add(Command.build, "Build context Docker image", "context");
+    u.add(Command.clean, "Remove exited Docker containers and useless images\nUse -v to remove the associated volumes");
+    u.add(Command.config, "List auto-configured Docker images building tags");
+    u.add(Command.export, "Export all contexts except binaries to a tar archive");
+    u.add(Command.info, "Show information relating to the Dockerfile files");
+    u.add(Command.op, "Change maintainer information in the Dockerfile files", "name");
+    u.add(Command.print, "Show context Dockerfile", "context");
+    u.add(Command.script, "Show shell script for defined docktitude script tags", "context");
+    u.add(Command.snapshot, "Display Docker images and save the selected one (.tar)");
+    u.add(Command.status, "Show local Docker images update status");
+    u.add(Command.tree, "List Docker images in a tree-like format");
+    u.add(Command.update, "Update external Docker images");
+    u.add(Command.upgrade, "Build cascade local Docker images");
+    u.add(Command.version, "Show version information");
     return u;
 }
 
-//#############################################################################
+// #############################################################################
 
 parseArgs();
 
-//util.run('docker -v');
+// util.run("docker -v");
 
-//#############################################################################
+// #############################################################################

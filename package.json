@@ -6,10 +6,10 @@
   "bin": "./bin/docktitude",
   "scripts": {
     "clean": "rm -rf lib/ build/ main.js",
-    "tsc": "tsc",
-    "lint": "jshint build/lib/**/*.js build/main.js",
+    "compile": "tslint src/**/*.ts src/*.ts && tsc",
+    "lint": "jshint build/lib/**/*.js build/*.js",
     "uglify": "gulp",
-    "build": "npm run clean && npm run tsc && npm run lint && npm run uglify",
+    "build": "npm run clean && npm run compile && npm run lint && npm run uglify",
     "pretest": "npm run build",
     "test": "mocha"
   },
@@ -45,6 +45,8 @@
     "gulp": "^3.9.1",
     "gulp-uglify": "^1.5.3",
     "jshint": "^2.9.2",
-    "mocha": "^2.4.5"
+    "mocha": "^2.4.5",
+    "tslint": "^3.8.1",
+    "typescript": "^1.8.10"
   }
 }

@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import constant = require('./constant');
-import { Callback, Indexed, StringKeyMap } from './common';
+import constant = require("./constant");
+import { Callback, Indexed, StringKeyMap } from "./common";
 
-//#############################################################################
+// #############################################################################
 
-const spawn = require('child_process').spawn;
-const execSync = require('child_process').execSync;
+const spawn = require("child_process").spawn;
+const execSync = require("child_process").execSync;
 
-//#############################################################################
+// #############################################################################
 
 export function print(t: any): void {
     process.stdout.write(t);
@@ -102,7 +102,7 @@ export function isNumeric(s: string): boolean {
 }
 
 export function getCurrentWorkingDir(): string {
-    return runSyncString('pwd');
+    return runSyncString("pwd");
 }
 
 export function runSync(command: string, echo: boolean = false): void {
@@ -117,10 +117,10 @@ export function runSyncString(command: string): string {
 }
 
 export function runAsync(command: string, ...callbacks: Callback<string[]>[]): void {
-    const p = spawn('bash', ['-c', command]);
+    const p = spawn("bash", ["-c", command]);
 
     const lines: string[] = [];
-    p.stdout.on('data', (data: any) => {
+    p.stdout.on("data", (data: any) => {
         const frags: string[] = data.toString().split(constant.NL);
         for (let s of frags) {
             if (s.trim().length > 0) {
@@ -131,7 +131,7 @@ export function runAsync(command: string, ...callbacks: Callback<string[]>[]): v
 
     handleError(p);
 
-    p.on('close', (code: any) => {
+    p.on("close", (code: any) => {
         callbacks.forEach(f => f(lines));
     });
 }
@@ -141,12 +141,12 @@ export function apply<T>(...callbacks: Callback<T>[]): void {
 }
 
 function handleError(t: any): void {
-    t.stderr.on('data', (data: any) => {
+    t.stderr.on("data", (data: any) => {
         println(`stderr: ${data}`);
     });
 }
 
-//#############################################################################
+// #############################################################################
 
 export function indexArray(array: string[]): Indexed[] {
     const newArray: Indexed[] = [];
@@ -164,4 +164,4 @@ export function indexMap(map: StringKeyMap<string[]>): StringKeyMap<Indexed[]> {
     return newMap;
 }
 
-//#############################################################################
+// #############################################################################

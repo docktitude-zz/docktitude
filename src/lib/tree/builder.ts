@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import constant = require('./constant');
-import util = require('../util');
-import { Callback, Indexed, StringKeyMap } from '../common';
-import { TreeDataHolder } from './dataholder';
+import constant = require("./constant");
+import util = require("../util");
+import { Callback, Indexed, StringKeyMap } from "../common";
+import { TreeDataHolder } from "./dataholder";
 
-//#############################################################################
+// #############################################################################
 
 export class TreeBuilder<T extends Indexed> {
 
@@ -38,7 +38,7 @@ export class TreeBuilder<T extends Indexed> {
         else {
             this.lineConsumer = (line: string[]) => {
                 util.println(line.join(constant.EMPTY));
-            }
+            };
         }
         this.decorationsByNode = {};
         this.leftPadding = util.repeat(constant.SPACE, constant.TAB_SIZE);
@@ -107,4 +107,4 @@ export class TreeBuilder<T extends Indexed> {
     }
 }
 
-//#############################################################################
+// #############################################################################

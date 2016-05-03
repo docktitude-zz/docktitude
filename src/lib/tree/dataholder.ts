@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import util = require('../util');
-import { Callback, Indexed, StringKeyMap } from '../common';
+import util = require("../util");
+import { Callback, Indexed, StringKeyMap } from "../common";
 
-//#############################################################################
+// #############################################################################
 
 export class TreeDataHolder<T extends Indexed> {
     constructor(public roots: T[], private nodesByParent: StringKeyMap<T[]>) {
@@ -78,4 +78,4 @@ export class TreeDataHolder<T extends Indexed> {
     }
 }
 
-//#############################################################################
+// #############################################################################

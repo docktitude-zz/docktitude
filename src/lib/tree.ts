@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-//*****************************************************************************
+// *****************************************************************************
 
-import constant = require('./constant');
-import util = require('./util');
-import { Callback, Indexed, StringKeyMap } from './common';
-import { TreeDataHolder } from './tree/dataholder';
-import { TreeBuilder } from './tree/builder';
+import constant = require("./constant");
+import util = require("./util");
+import { Callback, Indexed, StringKeyMap } from "./common";
+import { TreeDataHolder } from "./tree/dataholder";
+import { TreeBuilder } from "./tree/builder";
 
-import fs = require('fs');
-import path = require('path');
+import fs = require("fs");
+import path = require("path");
 
-//#############################################################################
+// #############################################################################
 
 export interface Context extends Indexed {
     name: string;
@@ -34,13 +34,13 @@ export interface Context extends Indexed {
     parent?: string;
 }
 
-//#############################################################################
+// #############################################################################
 
 export function print(): void {
     const f = (t: TreeDataHolder<Context>) => {
         const builder: TreeBuilder<Context> = new TreeBuilder(t);
         builder.build();
-    }
+    };
     generateTreeData(f);
 }
 
@@ -85,7 +85,7 @@ export function findContexts(callback: Callback<StringKeyMap<Context>>): void {
             }
         }
         return callback(contextsByName);
-    }
+    };
 
     util.runAsync("find . -type f -name 'Dockerfile' | awk -F '.' '{idx=index($0,\".\"); print substr($0,idx+1)}' | awk -F 'Dockerfile' '{print $1}'", read);
 }
@@ -99,7 +99,7 @@ export function generateTreeData(callback: Callback<TreeDataHolder<Context>>): v
             contextsByName[name].parent = getParentImage(name, contextsByName[name].paths[0]);
         }
         return computeNodes(contextsByName);
-    }
+    };
 
     const computeNodes = (contextsByName: StringKeyMap<Context>) => {
         const nodesTags: string[] = [];
@@ -126,7 +126,7 @@ export function generateTreeData(callback: Callback<TreeDataHolder<Context>>): v
             }
         }
         return callback(new TreeDataHolder(roots, nodesByParentId));
-    }
+    };
 
     findContexts(computeHierarchy);
 }
@@ -142,7 +142,7 @@ export function checkSearchDepth(): void {
 function computeTag(currentWorkingDir: string, dirpath: string): string {
     const f = (s: string): string => {
         return s.replace(constant.DASH, constant.COLON).replace(constant.UNDERSCORE, constant.DASH);
-    }
+    };
     const parentDir: string = path.dirname(dirpath);
     if (currentWorkingDir === parentDir) {
         return f(path.basename(dirpath));
@@ -163,4 +163,4 @@ function getParentImage(ctx: string, dirpath: string): string {
     return parent;
 }
 
-//#############################################################################
+// #############################################################################
