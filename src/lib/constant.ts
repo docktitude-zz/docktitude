@@ -36,7 +36,6 @@ export const ENCODING_UTF8: string = "utf8";
 
 export const DOCKTITUDE: string = "docktitude";
 export const VERSION: string = "version";
-export const VERSION_NB: string = "2.0.0";
 
 export const SEE_HELP: string = `${DOCKTITUDE}: %s is not a ${DOCKTITUDE} command. See '${DOCKTITUDE} help'.`;
 export const HELP_OPTS: string[] = ["help", "--help", "-h"];

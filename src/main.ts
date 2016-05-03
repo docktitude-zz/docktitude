@@ -312,7 +312,12 @@ function clean(removeVolumes: boolean): void {
 }
 
 function printVersion(): void {
-    util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${constant.VERSION_NB}`);
+    fs.readFile(path.join(__dirname, "./package.json"), constant.ENCODING_UTF8, (err, data) => {
+        if (err != null) {
+            util.println(`${constant.DOCKTITUDE} ${constant.VERSION} 2.0.2`);
+        }
+        util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${JSON.parse(data).version}`);
+    });
 }
 
 function checkArg(args: string[], joined: boolean = false): string {
