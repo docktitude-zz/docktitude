@@ -109,11 +109,25 @@ export function runSync(command: string, echo: boolean = false): void {
     if (echo) {
         println(`${constant.NL}$> ${command}`);
     }
-    execSync(command, { stdio: [0, 1, 2] });
+    try {
+        execSync(command, { stdio: [0, 1, 2] });
+    }
+    catch (e) {
+        println(constant.NO_PERM);
+        process.exit(1);
+    }
 }
 
 export function runSyncString(command: string): string {
-    return execSync(command).toString().trim();
+    let output: string;
+    try {
+        output = execSync(command).toString().trim();
+    }
+    catch (e) {
+        println(constant.NO_PERM);
+        process.exit(1);
+    }
+    return output;
 }
 
 export function runAsync(command: string, ...callbacks: Callback<string[]>[]): void {
@@ -142,7 +156,8 @@ export function apply<T>(...callbacks: Callback<T>[]): void {
 
 function handleError(t: any): void {
     t.stderr.on("data", (data: any) => {
-        println(`stderr: ${data}`);
+        println(`${constant.DOCKTITUDE}: ${data}`);
+        process.exit(1);
     });
 }
 
