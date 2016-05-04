@@ -117,7 +117,7 @@ export function getCurrentWorkingDir(): string {
     return runSyncString("pwd");
 }
 
-export function runSync(command: string, echo: boolean = false): void {
+export function runSync(command: string, echo: boolean = false, exitOnError: boolean = true): void {
     if (echo) {
         println(`${constant.NL}$> ${command}`);
     }
@@ -125,19 +125,21 @@ export function runSync(command: string, echo: boolean = false): void {
         execSync(command, { stdio: [0, 1, 2] });
     }
     catch (e) {
-        println(constant.NO_PERM);
-        process.exit(1);
+        if (exitOnError) {
+            process.exit(1);
+        }
     }
 }
 
-export function runSyncString(command: string): string {
+export function runSyncString(command: string, exitOnError: boolean = true): string {
     let output: string;
     try {
         output = execSync(command).toString().trim();
     }
     catch (e) {
-        println(constant.NO_PERM);
-        process.exit(1);
+        if (exitOnError) {
+            process.exit(1);
+        }
     }
     return output;
 }
