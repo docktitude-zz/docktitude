@@ -102,8 +102,6 @@ export function generateTreeData(callback: Callback<TreeDataHolder<Context>>): v
     };
 
     const computeNodes = (contextsByName: StringKeyMap<Context>) => {
-        const nodesTags: string[] = [];
-
         let curParentId: string;
         for (let name of Object.keys(contextsByName)) {
             curParentId = contextsByName[name].parent;
@@ -113,26 +111,15 @@ export function generateTreeData(callback: Callback<TreeDataHolder<Context>>): v
             else {
                 nodesByParentId[curParentId] = [contextsByName[name]];
             }
-            nodesTags.push(contextsByName[name].tag);
         }
-
-        for (let id of Object.keys(nodesByParentId)) {
-            if (!util.contains(id, nodesTags)) {
-                roots.push({
-                    name: id,
-                    paths: [],
-                    index: id
-                });
-            }
-        }
-        return callback(new TreeDataHolder(roots, nodesByParentId));
+        return callback(new TreeDataHolder(nodesByParentId));
     };
 
     findContexts(computeHierarchy);
 }
 
 export function checkSearchDepth(): void {
-    const output: string = util.runSyncString("find . -mindepth 1 -maxdepth 2 -type f -name 'Dockerfile' | wc -l");
+    const output: string = util.runSyncString("find . -mindepth 2 -maxdepth 2 -type f -name 'Dockerfile' | wc -l");
     if (output === constant.ZERO) {
         util.println(constant.NO_CTX);
         process.exit(0);

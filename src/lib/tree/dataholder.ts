@@ -22,8 +22,11 @@ import { Callback, Indexed, StringKeyMap } from "../common";
 // #############################################################################
 
 export class TreeDataHolder<T extends Indexed> {
-    constructor(public roots: T[], private nodesByParent: StringKeyMap<T[]>) {
-        TreeDataHolder.sort(roots, nodesByParent);
+    public roots: T[] = [];
+
+    constructor(private nodesByParentId: StringKeyMap<T[]>) {
+        this.computeRoots(nodesByParentId);
+        TreeDataHolder.sort(this.roots, nodesByParentId);
     }
 
     isEmpty(): boolean {
@@ -31,15 +34,15 @@ export class TreeDataHolder<T extends Indexed> {
     }
 
     getNodes(parent: T): T[] {
-        if (this.nodesByParent[parent.index] != null) {
-            return this.nodesByParent[parent.index];
+        if (this.nodesByParentId[parent.index] != null) {
+            return this.nodesByParentId[parent.index];
         }
         return null;
     }
 
     getParent(node: T): Indexed {
-        for (let parent of Object.keys(this.nodesByParent)) {
-            if (util.contains(node, this.nodesByParent[parent])) {
+        for (let parent of Object.keys(this.nodesByParentId)) {
+            if (util.contains(node, this.nodesByParentId[parent])) {
                 return { index: parent };
             }
         }
@@ -47,7 +50,17 @@ export class TreeDataHolder<T extends Indexed> {
     }
 
     walk(func: Callback<T>): void {
-        TreeDataHolder.walk(this.roots, this.nodesByParent, func);
+        TreeDataHolder.walk(this.roots, this.nodesByParentId, func);
+    }
+
+    private computeRoots(nodesByParentId: StringKeyMap<T[]>): void {
+        const nodesTags: string[] = util.stringValues(nodesByParentId);
+
+        for (let id of Object.keys(nodesByParentId)) {
+            if (!util.contains(id, nodesTags)) {
+                this.roots.push(<T>{ index: id });
+            }
+        }
     }
 
     private static walk<T extends Indexed>(rootElements: T[], nodesByParent: StringKeyMap<T[]>, func: Callback<T>): void {

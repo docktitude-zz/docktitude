@@ -57,19 +57,18 @@ const EXPECTED_TREE1: string =
 
 describe("Tree Builder Unit Tests:", () => {
 
-    const nodesByParent: StringKeyMap<string[]> = {};
-    nodesByParent["base/debian:jdk7"] = ["base/debian:jdk7-ui"];
-    nodesByParent["base/debian:jdk8"] = ["activemq", "base/debian:jdk8-ui"];
-    nodesByParent["base/debian:jdk8-scm"] = ["idea", "netbeans"];
-    nodesByParent["alpine"] = ["transmission"];
-    nodesByParent["base/debian"] = ["base/debian:jdk7", "base/debian:jdk8", "chrome", "clamav", "grafana", "influxdb", "telegraf"];
-    nodesByParent["base/debian:jdk7-ui"] = ["gatling"];
-    nodesByParent["base/debian:build"] = ["base/debian"];
-    nodesByParent["debian:latest"] = ["base/debian:build"];
-    nodesByParent["base/debian:jdk8-ui"] = ["base/debian:jdk8-scm", "libreoffice"];
+    const nodesByParentId: StringKeyMap<string[]> = {};
+    nodesByParentId["base/debian:jdk7"] = ["base/debian:jdk7-ui"];
+    nodesByParentId["base/debian:jdk8"] = ["activemq", "base/debian:jdk8-ui"];
+    nodesByParentId["base/debian:jdk8-scm"] = ["idea", "netbeans"];
+    nodesByParentId["alpine"] = ["transmission"];
+    nodesByParentId["base/debian"] = ["base/debian:jdk7", "base/debian:jdk8", "chrome", "clamav", "grafana", "influxdb", "telegraf"];
+    nodesByParentId["base/debian:jdk7-ui"] = ["gatling"];
+    nodesByParentId["base/debian:build"] = ["base/debian"];
+    nodesByParentId["debian:latest"] = ["base/debian:build"];
+    nodesByParentId["base/debian:jdk8-ui"] = ["base/debian:jdk8-scm", "libreoffice"];
 
-    const roots: string[] = ["alpine", "debian:latest"];
-    const treeDataHolder: TreeDataHolder<Indexed> = new TreeDataHolder(util.indexArray(roots), util.indexMap(nodesByParent));
+    const treeDataHolder: TreeDataHolder<Indexed> = new TreeDataHolder(util.indexMap(nodesByParentId));
 
     const content: string[] = [];
     const lineConsumer: Callback<string[]> = (line: string[]) => {
