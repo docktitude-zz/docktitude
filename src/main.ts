@@ -267,7 +267,7 @@ function update(): void {
         });
 
         for (let img of filteredImages) {
-            util.runSync(`docker pull ${img}`);
+            util.runSync(`docker pull ${img}`, false, false);
         }
     };
 
@@ -314,7 +314,7 @@ function clean(removeVolumes: boolean): void {
 function printVersion(): void {
     fs.readFile(path.join(__dirname, "./package.json"), constant.ENCODING_UTF8, (err, data) => {
         if (err != null) {
-            util.println(`${constant.DOCKTITUDE} ${constant.VERSION} 2.0.2`);
+            util.println(`${constant.DOCKTITUDE} ${constant.VERSION} 2.x.x`);
         }
         util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${JSON.parse(data).version}`);
     });
