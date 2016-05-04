@@ -1,6 +1,6 @@
 {
   "name": "docktitude",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": " Docktitude - The Easy Way to Build your Docker images Hierarchy",
   "main": "main.js",
   "bin": "./bin/docktitude",
@@ -29,7 +29,9 @@
     "container",
     "hierarchy",
     "dependencies",
-    "build"
+    "build",
+    "gitlab-ci",
+    "jenkins"
   ],
   "author": {
     "name": "Docktitude",
