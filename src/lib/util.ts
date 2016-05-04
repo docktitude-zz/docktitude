@@ -17,7 +17,7 @@
 // *****************************************************************************
 
 import constant = require("./constant");
-import { Callback, Indexed, StringKeyMap } from "./common";
+import { Callback, Indexed, Map, StringKeyMap } from "./common";
 
 // #############################################################################
 
@@ -101,6 +101,18 @@ export function isNumeric(s: string): boolean {
     return false;
 }
 
+export function stringValues<T extends Indexed>(map: Map<T[]>): string[] {
+    const array: string[] = [];
+    let curNodes: T[];
+    for (let k of Object.keys(map)) {
+        curNodes = map[k];
+        for (let e of curNodes) {
+            array.push(e.index);
+        }
+    }
+    return array;
+}
+
 export function getCurrentWorkingDir(): string {
     return runSyncString("pwd");
 }
@@ -163,20 +175,20 @@ function handleError(t: any): void {
 
 // #############################################################################
 
-export function indexArray(array: string[]): Indexed[] {
-    const newArray: Indexed[] = [];
-    for (let i: number = 0; i < array.length; i++) {
-        newArray[i] = { index: array[i] };
-    }
-    return newArray;
-}
-
 export function indexMap(map: StringKeyMap<string[]>): StringKeyMap<Indexed[]> {
     const newMap: StringKeyMap<Indexed[]> = {};
     for (let k of Object.keys(map)) {
         newMap[k] = indexArray(map[k]);
     }
     return newMap;
+}
+
+function indexArray(array: string[]): Indexed[] {
+    const newArray: Indexed[] = [];
+    for (let i: number = 0; i < array.length; i++) {
+        newArray[i] = { index: array[i] };
+    }
+    return newArray;
 }
 
 // #############################################################################
