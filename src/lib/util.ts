@@ -17,7 +17,7 @@
 // *****************************************************************************
 
 import constant = require("./constant");
-import { Callback, Indexed, Map, StringKeyMap } from "./common";
+import { Callback, Indexed, Map } from "./common";
 
 // #############################################################################
 
@@ -173,24 +173,6 @@ function handleError(t: any): void {
         println(`${constant.DOCKTITUDE}: ${data}`);
         process.exit(1);
     });
-}
-
-// #############################################################################
-
-export function indexMap(map: StringKeyMap<string[]>): StringKeyMap<Indexed[]> {
-    const newMap: StringKeyMap<Indexed[]> = {};
-    for (let k of Object.keys(map)) {
-        newMap[k] = indexArray(map[k]);
-    }
-    return newMap;
-}
-
-function indexArray(array: string[]): Indexed[] {
-    const newArray: Indexed[] = [];
-    for (let i: number = 0; i < array.length; i++) {
-        newArray[i] = { index: array[i] };
-    }
-    return newArray;
 }
 
 // #############################################################################
