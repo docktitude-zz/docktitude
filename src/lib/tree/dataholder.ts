@@ -42,7 +42,7 @@ export class TreeDataHolder<T extends Indexed> {
 
     getParent(node: T): Indexed {
         for (let parent of Object.keys(this.nodesByParentId)) {
-            if (util.contains(node, this.nodesByParentId[parent])) {
+            if (TreeDataHolder.contains(node, this.nodesByParentId[parent])) {
                 return { index: parent };
             }
         }
@@ -88,6 +88,15 @@ export class TreeDataHolder<T extends Indexed> {
             return -1;
         }
         return 0;
+    }
+
+    private static contains<T extends Indexed>(t: T, array: T[]): boolean {
+        for (let e of array) {
+            if (e.index === t.index) {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
