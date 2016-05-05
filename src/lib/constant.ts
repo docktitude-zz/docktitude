@@ -39,6 +39,7 @@ export const VERSION: string = "version";
 
 export const SEE_HELP: string = `${DOCKTITUDE}: %s is not a ${DOCKTITUDE} command. See '${DOCKTITUDE} help'.`;
 export const HELP_OPTS: string[] = ["help", "--help", "-h"];
+export const VERSION_OPTS: string[] = ["--version", "-v"];
 
 export const CTX: string = "CONTEXT";
 export const CTX_IMG_TAG: string = "IMAGE TAG";

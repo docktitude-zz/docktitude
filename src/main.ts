@@ -34,8 +34,8 @@ function parseArgs(): void {
     const args: string[] = process.argv.slice(constant.ARGS_PROCESS_START_INDEX);
     const usage: Usage = buildUsage();
 
-    if (args.length === 0 || usage.contains(args[0]) || util.contains(args[0], constant.HELP_OPTS)) {
-        const index: number = Command[args[0]];
+    if (args.length === 0 || usage.contains(args[0]) || util.containsAny(args[0], [constant.HELP_OPTS, constant.VERSION_OPTS])) {
+        const index: number = util.contains(args[0], constant.VERSION_OPTS) ? -1 : Command[args[0]];
         switch (index) {
             case Command.build: { build(checkArg(args)); break; }
             case Command.clean: { clean(args.length > 1 && args[1] === "-v"); break; }
@@ -51,6 +51,7 @@ function parseArgs(): void {
             case Command.update: { update(); break; }
             case Command.upgrade: { upgrade(); break; }
             case Command.version: { printVersion(); break; }
+            case -1: { printVersion(); break; }
             default: usage.display();
         }
     }
@@ -352,7 +353,5 @@ function buildUsage(): Usage {
 // #############################################################################
 
 parseArgs();
-
-// util.run("docker -v");
 
 // #############################################################################
