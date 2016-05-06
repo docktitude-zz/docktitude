@@ -119,7 +119,23 @@ describe("TreeDataHolder", () => {
         });
 
         it("should return a parent", () => {
-            assert.deepEqual(treeDataHolder.getParent(index("clamav", "base/debian")), { index: "base/debian" });
+            assert.deepEqual(treeDataHolder.getParent(index("clamav")), { index: "base/debian" });
+        });
+    });
+
+    describe("#getRoot(..)", () => {
+        it("should be null", () => {
+            assert.isNull(treeDataHolder.getRoot(index("test")));
+        });
+
+        it("should return a root", () => {
+            assert.equal(treeDataHolder.getRoot(index("libreoffice")).index, "debian:latest");
+        });
+    });
+
+    describe("#getNbNodes()", () => {
+        it("should be 18", () => {
+            assert.equal(treeDataHolder.getNbNodes(), 18);
         });
     });
 });

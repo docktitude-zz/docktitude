@@ -176,9 +176,26 @@ function exportContexts(): void {
 }
 
 function printInfo(): void {
-    tree.findContexts((contextsByName: StringKeyMap<tree.Context>) => {
-        board.print1(contextsByName, `${constant.CTX_REPORT}: ${Object.keys(contextsByName).length}`);
-    });
+    const f = (t: TreeDataHolder<tree.Context>) => {
+        const total: number = t.getNbNodes();
+
+        const stats: StringKeyMap<number> = {};
+        const statsAsString: StringKeyMap<Indexed> = {};
+
+        for (let e of t.roots) {
+            stats[e.index] = 0;
+        }
+        for (let id of Object.keys(t.nodesByParentId)) {
+            stats[t.getRoot({ index: id }).index] += t.nodesByParentId[id].length;
+        }
+        for (let n of Object.keys(stats)) {
+            statsAsString[n] = {
+                index: util.fmtString(`%s ${constant.PERCENT}  (${stats[n]})`, ((stats[n] * 100) / total).toPrecision(4))
+            };
+        }
+        board.print2(statsAsString, "BASE IMAGE", `DISTRIBUTION (${total})`);
+    };
+    tree.generateTreeData(f);
 }
 
 function printConfig(): void {
