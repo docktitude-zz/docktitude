@@ -24,7 +24,7 @@ import { Callback, Indexed, StringKeyMap } from "../common";
 export class TreeDataHolder<T extends Indexed> {
     public roots: T[] = [];
 
-    constructor(private nodesByParentId: StringKeyMap<T[]>) {
+    constructor(public nodesByParentId: StringKeyMap<T[]>) {
         this.computeRoots(nodesByParentId);
         TreeDataHolder.sort(this.roots, nodesByParentId);
     }
@@ -41,12 +41,34 @@ export class TreeDataHolder<T extends Indexed> {
     }
 
     getParent(node: T): Indexed {
-        for (let parent of Object.keys(this.nodesByParentId)) {
-            if (TreeDataHolder.contains(node, this.nodesByParentId[parent])) {
-                return { index: parent };
+        for (let id of Object.keys(this.nodesByParentId)) {
+            if (TreeDataHolder.contains(node, this.nodesByParentId[id])) {
+                return { index: id };
             }
         }
         return null;
+    }
+
+    getRoot(nodeIndex: Indexed): Indexed {
+        const parent: Indexed = this.getParent(<T>nodeIndex);
+        if (parent != null) {
+            if (TreeDataHolder.contains(parent, this.roots)) {
+                return parent;
+            }
+            return this.getRoot(parent);
+        }
+        else if (TreeDataHolder.contains(<T>nodeIndex, this.roots)) {
+            return nodeIndex;
+        }
+        return null;
+    }
+
+    getNbNodes(): number {
+        let n: number = 0;
+        for (let id of Object.keys(this.nodesByParentId)) {
+            n += this.nodesByParentId[id].length;
+        }
+        return n;
     }
 
     walk(func: Callback<T>): void {

@@ -27,6 +27,7 @@ export const SLASH: string = "/";
 export const NL: string = "\n";
 
 export const PLUS: string = "+";
+export const PERCENT: string = "%";
 export const ARROW: string = "=>";
 export const COLLAPSE: string = "[-]";
 export const ZERO: string = "0";
@@ -43,7 +44,6 @@ export const VERSION_OPTS: string[] = ["--version", "-v"];
 
 export const CTX: string = "CONTEXT";
 export const CTX_IMG_TAG: string = "IMAGE TAG";
-export const CTX_REPORT: string = "Docker contexts";
 
 export const PROMPT_IMG: string = "Image to save (choose a number)> ";
 
