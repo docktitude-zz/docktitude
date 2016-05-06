@@ -140,7 +140,7 @@ function computeTag(currentWorkingDir: string, dirpath: string): string {
 function getParentImage(ctx: string, dirpath: string): string {
     let parent: string = constant.QMK;
     fs.readFileSync(path.join(dirpath, constant.DOCKERFILE), constant.ENCODING_UTF8).split(constant.NL).some((line: string) => {
-        if (line.indexOf(constant.PARENT_PATTERN) >= 0) {
+        if (line.indexOf(constant.PARENT_PATTERN) === 0) {
             const index: number = line.indexOf(constant.PARENT_PATTERN) + constant.PARENT_PATTERN.length;
             parent = line.substr(index);
             return true;
