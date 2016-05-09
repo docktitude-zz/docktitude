@@ -258,7 +258,7 @@ function useContext(ctx: string, func: BiConsumer<string, StringKeyMap<tree.Cont
 function upgrade(): void {
     const f = (t: TreeDataHolder<tree.Context>) => {
         t.walk((ctx: tree.Context) => {
-            if (ctx.paths[0] != null) {
+            if ((ctx.paths != null) && (ctx.paths[0] != null)) {
                 util.runSync(`docker build -t "${ctx.tag}" ${ctx.paths[0]}`, true);
             }
         });
