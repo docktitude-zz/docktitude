@@ -4,6 +4,13 @@
 
 
 
+## Installation
+
+```
+$> npm install -g docktitude
+```
+
+
 ## Getting started
 
 1. **cd docker-contexts** *(where you store your Docker contexts)*
