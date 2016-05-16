@@ -21,7 +21,7 @@ _docktitude()
   prev="${COMP_WORDS[COMP_CWORD-1]}"
   case $prev in
     'docktitude')
-      COMPREPLY=( $(compgen -W "build clean config export help info op print script snapshot status tree update upgrade version" -- $cur) )
+      COMPREPLY=( $(compgen -W "build clean config export help info op play print script snapshot status tree update upgrade version" -- $cur) )
       return 0
       ;;
     'build'|'print'|'script')
