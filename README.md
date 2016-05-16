@@ -1,4 +1,4 @@
-# Docktitude - The Easy Way to Build your Docker images Hierarchy
+# Docktitude - The easy way to build your Docker images hierarchy
 
 ![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "http://docktitude.io")
 
