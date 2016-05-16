@@ -34,6 +34,7 @@ export const ZERO: string = "0";
 
 export const STRING_FMT: string = "%s";
 export const ENCODING_UTF8: string = "utf8";
+export const EOF: string = "EOF";
 
 export const DOCKTITUDE: string = "docktitude";
 export const VERSION: string = "version";
@@ -42,8 +43,11 @@ export const SEE_HELP: string = `${DOCKTITUDE}: %s is not a ${DOCKTITUDE} comman
 export const HELP_OPTS: string[] = ["help", "--help", "-h"];
 export const VERSION_OPTS: string[] = ["--version", "-v"];
 
+export const ALINEA: string = "+++";
 export const CTX: string = "CONTEXT";
 export const CTX_IMG_TAG: string = "IMAGE TAG";
+export const INFO_COL1: string = "BASE IMAGE";
+export const INFO_COL2: string = "DISTRIBUTION";
 
 export const PROMPT_IMG: string = "Image to save (choose a number)> ";
 
@@ -53,6 +57,7 @@ export const PARENT_PATTERN: string = "FROM ";
 export const GHOST_IMAGE: string = "<none>:<none>";
 export const IMG_HISTORY_ERROR: string = "Err";
 
+export const SCRIPT_NAME_SUFFIX: string = "[ SHELL SCRIPT ]";
 export const SCRIPT_TAG: string = "#@";
 export const BEGIN_TEMPLATE_SCRIPT: string = "[--DOCKTITUDE-SCRIPT";
 export const END_TEMPLATE_SCRIPT: string = "DOCKTITUDE-SCRIPT--]";

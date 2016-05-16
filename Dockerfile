@@ -10,10 +10,9 @@
 #
 #
 #
-FROM node:4.4.3
+FROM node:4.4.4
 MAINTAINER support@docktitude.io
 
-ENV DOCKTITUDE_VERSION 2.0.0
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update -qq \
