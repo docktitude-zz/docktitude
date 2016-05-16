@@ -1,7 +1,7 @@
 # Docktitude - The Easy Way to Build your Docker images Hierarchy
 
 ![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "http://docktitude.io")
-[![NPM Version](http://img.shields.io/npm/v/docktitude.svg?style=flat)](https://www.npmjs.org/package/docktitude)
+![](http://img.shields.io/npm/v/docktitude.svg?style=flat "https://www.npmjs.org/package/docktitude")
 
 
 
