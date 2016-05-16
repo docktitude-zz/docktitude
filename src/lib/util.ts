@@ -71,6 +71,10 @@ export function repeat(s: string, n: number): string {
     return Array(n + 1).join(s);
 }
 
+export function isEmpty(s: string): boolean {
+    return ((s != null) ? s.trim().length === 0 : true);
+}
+
 export function containsString(searchStr: string, str: string): boolean {
     return (str.indexOf(searchStr) >= 0);
 }

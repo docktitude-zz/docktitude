@@ -30,7 +30,7 @@ interface Option {
 // #############################################################################
 
 export enum Command {
-    build, clean, config, export, info, op, print, script, snapshot, status, tree, update, upgrade, version
+    build, clean, config, export, info, op, play, print, script, snapshot, status, tree, update, upgrade, version
 }
 
 export class Usage {

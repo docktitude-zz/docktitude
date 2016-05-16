@@ -43,6 +43,7 @@ function parseArgs(): void {
             case Command.export: { exportContexts(); break; }
             case Command.info: { printInfo(); break; }
             case Command.op: { changeMaintainer(checkArg(args, true)); break; }
+            case Command.play: { runScript(checkArg(args)); break; }
             case Command.print: { printContext(checkArg(args)); break; }
             case Command.script: { printScript(checkArg(args)); break; }
             case Command.snapshot: { snapshot(); break; }
@@ -105,36 +106,62 @@ function printStatus(): void {
     tree.generateTreeData(f);
 }
 
-function printScript(ctx: string, printer: Callback<string> = util.println): void {
-    const f = (ctx: string, contextsByName: StringKeyMap<tree.Context>): void => {
+function printScript(ctx: string): void {
+    const f = (line: string): void => {
+        if (line.indexOf(constant.EOF) !== 0) {
+            util.println(line);
+        }
+    };
+    useContext(ctx, useScript(ctx, f));
+}
+
+function runScript(ctx: string): void {
+    const lines: string[] = [];
+
+    const f = (line: string): void => {
+        if (!util.isEmpty(line)) {
+            const endOfScript: boolean = (line.indexOf(constant.EOF) === 0);
+            if ((line.indexOf(constant.SECTION) !== 0) && (line.indexOf(constant.ALINEA) !== 0) && !endOfScript && (line.indexOf("#!/") !== 0)) {
+                lines.push(line);
+            }
+            if (endOfScript) {
+                util.runSync(lines.join(constant.NL), true);
+            }
+        }
+    };
+    useContext(ctx, useScript(ctx, f));
+}
+
+function useScript(ctx: string, callback: Callback<string>): BiConsumer<string, StringKeyMap<tree.Context>> {
+    return (ctx: string, contextsByName: StringKeyMap<tree.Context>): void => {
         const filepath: string = path.join(contextsByName[ctx].paths[0], constant.DOCKERFILE);
-        const content: string[] = fs.readFileSync(filepath, constant.ENCODING_UTF8).split(constant.NL).filter((value, index, array) => {
+        const fileContent: string[] = fs.readFileSync(filepath, constant.ENCODING_UTF8).split(constant.NL).filter((value, index, array) => {
             return (value.indexOf(constant.SCRIPT_TAG) === 0);
         });
 
-        if ((content.length > 2) &&
-            (util.containsString(constant.BEGIN_TEMPLATE_SCRIPT, content[0])) &&
-            (util.containsString(constant.END_TEMPLATE_SCRIPT, content[content.length - 1]))) {
+        if ((fileContent.length > 2) &&
+            (util.containsString(constant.BEGIN_TEMPLATE_SCRIPT, fileContent[0])) &&
+            (util.containsString(constant.END_TEMPLATE_SCRIPT, fileContent[fileContent.length - 1]))) {
 
-            printer(constant.SECTION);
-            printer(`+++ ${ctx} [ SHELL SCRIPT ]`);
-            printer(constant.SECTION);
+            callback(constant.SECTION);
+            callback(`${constant.ALINEA} ${ctx} ${constant.SCRIPT_NAME_SUFFIX}`);
+            callback(constant.SECTION);
 
-            for (let i: number = 1; i < content.length - 1; i++) {
-                if (content[i].indexOf(constant.SCRIPT_TAG + constant.SPACE) === 0) {
-                    printer(content[i].replace(constant.SCRIPT_TAG + constant.SPACE, constant.EMPTY));
+            for (let i: number = 1; i < fileContent.length - 1; i++) {
+                if (fileContent[i].indexOf(constant.SCRIPT_TAG + constant.SPACE) === 0) {
+                    callback(fileContent[i].replace(constant.SCRIPT_TAG + constant.SPACE, constant.EMPTY));
                 }
                 else {
-                    printer(content[i].replace(constant.SCRIPT_TAG, constant.EMPTY));
+                    callback(fileContent[i].replace(constant.SCRIPT_TAG, constant.EMPTY));
                 }
             }
-            printer(constant.SECTION);
+            callback(constant.SECTION);
+            callback(constant.EOF);
         }
         else {
-            printer(constant.NO_SCRIPT_DEFINED);
+            callback(constant.NO_SCRIPT_DEFINED);
         }
     };
-    useContext(ctx, f);
 }
 
 function snapshot(): void {
@@ -193,7 +220,7 @@ function printInfo(): void {
                 index: util.fmtString(`%s ${constant.PERCENT}  (${stats[n]})`, ((stats[n] * 100) / total).toPrecision(4))
             };
         }
-        board.print2(statsAsString, "BASE IMAGE", `DISTRIBUTION (${total})`);
+        board.print2(statsAsString, constant.INFO_COL1, `${constant.INFO_COL2} (${total})`);
     };
     tree.generateTreeData(f);
 }
@@ -220,7 +247,7 @@ function readDockerfile(ctx: string, dirpath: string): void {
     });
 
     util.println(constant.SECTION);
-    util.println(`+++ ${ctx}`);
+    util.println(`${constant.ALINEA} ${ctx}`);
     util.println(`[${filepath}]`);
     util.println(constant.SECTION);
 
@@ -356,6 +383,7 @@ function buildUsage(): Usage {
     u.add(Command.export, "Export all contexts except binaries to a tar archive");
     u.add(Command.info, "Show information relating to the Dockerfile files");
     u.add(Command.op, "Change maintainer information in the Dockerfile files", "name");
+    u.add(Command.play, "Run shell script for defined docktitude script tags", "context");
     u.add(Command.print, "Show context Dockerfile", "context");
     u.add(Command.script, "Show shell script for defined docktitude script tags", "context");
     u.add(Command.snapshot, "Display Docker images and save the selected one (.tar)");
