@@ -1,8 +1,6 @@
 # Docktitude - The Easy Way to Build your Docker images Hierarchy
 
 ![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "http://docktitude.io")
-![](http://img.shields.io/npm/v/docktitude.svg?style=flat "https://www.npmjs.org/package/docktitude")
-
 
 
 ## Requirements
@@ -18,6 +16,7 @@
 ## Installation
 
 - Node.js package
+![](http://img.shields.io/npm/v/docktitude.svg?style=flat "https://www.npmjs.org/package/docktitude")
 ```
 $> npm install -g docktitude
 ```
