@@ -16,7 +16,7 @@
 ## Installation
 
 - Node.js package
-![](http://img.shields.io/npm/v/docktitude.svg?style=flat "https://www.npmjs.org/package/docktitude")
+[![NPM Version](http://img.shields.io/npm/v/docktitude.svg?style=flat)](https://www.npmjs.org/package/docktitude)
 ```
 $> npm install -g docktitude
 ```
