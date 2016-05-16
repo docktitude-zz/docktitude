@@ -43,57 +43,35 @@ $> docker run -it --rm --name docktitude \
 ```bash
 $> docktitude tree
 .
++-- alpine*
+|   +-- transmission
 +-- debian:latest*
 |   +-- debian:local
-|       +-- apache
-|       +-- common/mailcatcher
-|       +-- debian:jdk6
-|       |   +-- jmxtrans
-|       +-- debian:jdk7
-|       |   +-- debian:jdk7-ui
-|       |   |   +-- gatling
-|       |   +-- spring/petclinic
+|       +-- apache/apache
 |       +-- debian:jdk8
-|       |   +-- activemq
+|       |   +-- apache/activemq
 |       |   +-- debian:jdk8-ui
 |       |       +-- debian:jdk8-scm
-|       |       |   +-- eclipse
 |       |       |   +-- idea
-|       |       |   +-- netbeans
 |       |       +-- libreoffice
-|       +-- grafana
-|       +-- influxdb
-|       +-- telegraf
-|           +-- metrics:jdk6
-|               +-- perf/app1
+|       +-- vscode
 +-- nginx*
-    +-- demo
+|   +-- demo-site
++-- ubuntu:14.04*
+    +-- gitlab/gitlab-runner:local
 ```
 
 
 ```bash
 $> docktitude info
 +---------------+-------------------+
-| BASE IMAGE    | DISTRIBUTION (24) |
+| BASE IMAGE    | DISTRIBUTION (12) |
 +---------------+-------------------+
-| debian:latest | 91.67 %  (22)     |
-| nginx         | 4.167 %  (1)      |
-| ubuntu:14.04  | 4.167 %  (1)      |
+| alpine        | 8.333 %  (1)      |
+| debian:latest | 75.00 %  (9)      |
+| nginx         | 8.333 %  (1)      |
+| ubuntu:14.04  | 8.333 %  (1)      |
 +---------------+-------------------+
-```
-
-
-```bash
-$> docktitude print app1
---------------------------------
-+++ app1
-[/docker-contexts/perf/app1/Dockerfile]
---------------------------------
-FROM metrics:jdk6
-MAINTAINER demo@docktitude.io
-
-# Hierarchy demo
---------------------------------
 ```
 
 
@@ -129,6 +107,7 @@ Commands:
    export             Export all contexts except binaries to a tar archive
    info               Show information relating to the Dockerfile files
    op <name>          Change maintainer information in the Dockerfile files
+   play <context>     Run shell script for defined docktitude script tags
    print <context>    Show context Dockerfile
    script <context>   Show shell script for defined docktitude script tags
    snapshot           Display Docker images and save the selected one (.tar)

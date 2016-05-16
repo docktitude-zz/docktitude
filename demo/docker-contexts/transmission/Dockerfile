@@ -1,4 +1,4 @@
-FROM debian:jdk8-scm
+FROM alpine
 MAINTAINER demo@docktitude.io
 
 # Hierarchy demo
