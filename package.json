@@ -1,17 +1,18 @@
 {
   "name": "docktitude",
-  "version": "2.2.0",
-  "description": " Docktitude - The Easy Way to Build your Docker images Hierarchy",
+  "version": "2.2.1",
+  "description": " Docktitude - The easy way to build your Docker images hierarchy",
   "main": "main.js",
   "bin": "./bin/docktitude",
   "scripts": {
-    "clean": "rm -rf lib/ build/ main.js",
+    "clean": "rm -rf build *.js",
     "compile": "tslint src/**/*.ts src/*.ts && tsc",
     "lint": "jshint build/lib/**/*.js build/*.js",
-    "uglify": "gulp",
-    "build": "npm run clean && npm run compile && npm run lint && npm run uglify",
+    "browserify": "browserify build/main.js --node -t [ envify --NODE_ENV production ] -o main.js && browserify build/test/*.js -o tests.js",
+    "uglify": "uglifyjs main.js -c -m -o main.js",
+    "build": "npm run clean && npm run compile && npm run lint && npm run browserify && npm run uglify",
     "pretest": "npm run build",
-    "test": "mocha"
+    "test": "mocha tests.js"
   },
   "repository": {
     "type": "git",
@@ -44,12 +45,13 @@
     "url": "https://github.com/docktitude/docktitude/issues"
   },
   "devDependencies": {
+    "browserify": "^13.0.1",
     "chai": "^3.5.0",
-    "gulp": "^3.9.1",
-    "gulp-uglify": "^1.5.3",
+    "envify": "^3.4.0",
     "jshint": "^2.9.2",
     "mocha": "^2.4.5",
     "tslint": "^3.8.1",
-    "typescript": "^1.8.10"
+    "typescript": "^1.8.10",
+    "uglify-js": "^2.6.2"
   }
 }
