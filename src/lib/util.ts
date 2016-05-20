@@ -121,6 +121,10 @@ export function getCurrentWorkingDir(): string {
     return runSyncString("pwd");
 }
 
+export function getNodeVersion(): number {
+    return Number(process.version.match(/^v(\d+\.\d+)/)[1]);
+}
+
 export function runSync(command: string, echo: boolean = false, exitOnError: boolean = true): void {
     if (echo) {
         println(`${constant.NL}$> ${command}`);
