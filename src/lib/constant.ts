@@ -69,13 +69,19 @@ export const PARENT_NOT_FOUND: string = "<<parent image>> not found !";
 export const IMAGE_NOT_FOUND: string = "image not available | Build OK ?";
 export const NOTHING_TO_REPORT: string = "nothing to upgrade";
 
+export const NODE_UNSUPPORTED_VERSION: string = "Warning ! Installed Node.js version (%s) not supported !";
 export const MISSING_ARGUMENT: string = "Missing argument !";
-export const CTX_NOT_FOUND: string = `Docker context not found ! See '${DOCKTITUDE} info'.`;
+export const CTX_NOT_FOUND: string = `Docker context not found ! See '${DOCKTITUDE} config'.`;
 export const DUPLICATED_CTX: string = "Duplicated docker context found !";
 export const NO_CTX: string = "No Docker context found in the current directory !";
 export const NO_ENTRY_FOUND: string = "No entry found for '%s' !";
 export const NO_SCRIPT_DEFINED: string = `No ${DOCKTITUDE} script tags defined !`;
 export const NO_PERM: string = `${DOCKTITUDE}: Are you root?`;
 
-export const DEFAULT_COL_PADDING: number = 2;
+// #############################################################################
+
+export const NODE_SUPPORTED_INI_VERSION: number = 4.4;
 export const ARGS_PROCESS_START_INDEX: number = 2;
+export const DEFAULT_COL_PADDING: number = 2;
+
+// #############################################################################

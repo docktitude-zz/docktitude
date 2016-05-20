@@ -357,7 +357,13 @@ function clean(removeVolumes: boolean): void {
 }
 
 function printVersion(): void {
-    util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${process.env.npm_package_version}`);
+    util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${process.env.npm_package_version} (installed node: ${process.version})`);
+}
+
+function checkNodeVersion(): void {
+    if (util.getNodeVersion() < constant.NODE_SUPPORTED_INI_VERSION) {
+        util.fmt(constant.NODE_UNSUPPORTED_VERSION, process.version.substring(1));
+    }
 }
 
 function checkArg(args: string[], joined: boolean = false): string {
@@ -392,6 +398,7 @@ function buildUsage(): Usage {
 
 // #############################################################################
 
+checkNodeVersion();
 parseArgs();
 
 // #############################################################################
