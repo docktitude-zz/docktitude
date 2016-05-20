@@ -357,7 +357,7 @@ function clean(removeVolumes: boolean): void {
 }
 
 function printVersion(): void {
-    util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${process.env.npm_package_version} (installed node: ${process.version})`);
+    util.println(`${constant.DOCKTITUDE} ${constant.VERSION} ${process.env.npm_package_version}${constant.EMPTY} (installed node version: ${process.version.substring(1)})`);
 }
 
 function checkNodeVersion(): void {
