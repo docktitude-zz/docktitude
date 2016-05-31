@@ -1,4 +1,4 @@
 FROM ubuntu:14.04
 MAINTAINER demo@docktitude.io
 
-# Hierarchy demo
+# Hierarchy demo (content omitted for brevity)
