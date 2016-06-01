@@ -1,4 +1,4 @@
 FROM debian:local
 MAINTAINER demo@docktitude.io
 
-# Hierarchy demo
+# Hierarchy demo (content omitted for brevity)

@@ -37,7 +37,7 @@ function parseArgs(): void {
     if (args.length === 0 || usage.contains(args[0]) || util.containsAny(args[0], [constant.HELP_OPTS, constant.VERSION_OPTS])) {
         const index: number = util.contains(args[0], constant.VERSION_OPTS) ? -1 : Command[args[0]];
         switch (index) {
-            case Command.build: { build(checkArg(args)); break; }
+            case Command.build: { build(checkArgs(args)); break; }
             case Command.clean: { clean(args.length > 1 && args[1] === "-v"); break; }
             case Command.config: { printConfig(); break; }
             case Command.export: { exportContexts(); break; }
@@ -231,11 +231,21 @@ function printConfig(): void {
     });
 }
 
-function build(ctx: string): void {
+function build(args: string[]): void {
+    if (args == null) {
+        util.println(constant.MISSING_ARGUMENT);
+        process.exit(1);
+    }
+
+    const filteredArgs: string[] = args.filter((value, index, array) => {
+        return ((value !== "-f") && (value !== "--f"));
+    });
+    const noCacheOption: string = (args.length !== filteredArgs.length) ? "--no-cache " : constant.EMPTY;
+
     const f = (ctx: string, contextsByName: StringKeyMap<tree.Context>): void => {
-        util.runSync(`docker build -t "${contextsByName[ctx].tag}" ${contextsByName[ctx].paths[0]}`, true);
+        util.runSync(`docker build ${noCacheOption}-t "${contextsByName[ctx].tag}" ${contextsByName[ctx].paths[0]}`, true);
     };
-    useContext(ctx, f);
+    useContext((filteredArgs.length > 0) ? filteredArgs[0] : null, f);
 }
 
 function readDockerfile(ctx: string, dirpath: string): void {
@@ -376,9 +386,20 @@ function checkArg(args: string[], joined: boolean = false): string {
     return null;
 }
 
+function checkArgs(args: string[]): string[] {
+    if (args.length > 2) {
+        return args.slice(1);
+    }
+    const arg: string = checkArg(args);
+    if (arg != null) {
+        return [arg];
+    }
+    return null;
+}
+
 function buildUsage(): Usage {
     const u = new Usage("usage: docktitude [help] <command> [<args>]\n\nCommands:");
-    u.add(Command.build, "Build context Docker image", "context");
+    u.add(Command.build, "Build context Docker image. Use -f to force build", "context");
     u.add(Command.clean, "Remove exited Docker containers and useless images\nUse -v to remove the associated volumes");
     u.add(Command.config, "List auto-configured Docker images building tags");
     u.add(Command.export, "Export all contexts except binaries to a tar archive");

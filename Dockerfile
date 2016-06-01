@@ -10,7 +10,7 @@
 #
 #
 #
-FROM node:4.4.4
+FROM node:4.4.5
 MAINTAINER support@docktitude.io
 
 ENV DEBIAN_FRONTEND noninteractive
