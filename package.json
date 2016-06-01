@@ -1,6 +1,6 @@
 {
   "name": "docktitude",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "description": " Docktitude - The easy way to build your Docker images hierarchy",
   "main": "main.js",
   "bin": "./bin/docktitude",
