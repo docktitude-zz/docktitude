@@ -1,11 +1,12 @@
-# Docktitude - The easy way to build your Docker images hierarchy
+# Docktitude - A mastering Docker tool to enhance your docker experience
 
 ![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "http://docktitude.io")
 
+Display Tree | Update | Snapshot your Docker images hierarchy and much more...
 
 ## Requirements
 
-### Node.js (v4.4.3+)
+### Node.js (v4.4+)
 - Download: [Node.js](https://nodejs.org)
 
 ### Docker
@@ -47,7 +48,7 @@ $> docktitude tree
 |   +-- transmission
 +-- debian:latest*
 |   +-- debian:local
-|       +-- apache/apache
+|       +-- clamav
 |       +-- debian:jdk8
 |       |   +-- apache/activemq
 |       |   +-- debian:jdk8-ui
@@ -96,11 +97,11 @@ docker run -it --rm --name libreoffice \
 ## Documentation
 
 ```java
-$> docktitude --help
-usage: docktitude [--help] <command> [<args>]
+$> docktitude -h
+usage: docktitude [-h | --help | help] <command> [<args>]
 
 Commands:
-   build <context>    Build context Docker image
+   build <context>    Build context Docker image. Use -f to force build
    clean              Remove exited Docker containers and useless images
                       Use -v to remove the associated volumes
    config             List auto-configured Docker images building tags
