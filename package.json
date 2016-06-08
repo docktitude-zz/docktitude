@@ -35,7 +35,7 @@
     "gitlab-ci",
     "jenkins",
     "bamboo",
-    "tool",
+    "tool"
   ],
   "author": {
     "name": "Docktitude",
