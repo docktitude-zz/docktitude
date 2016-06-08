@@ -398,7 +398,7 @@ function checkArgs(args: string[]): string[] {
 }
 
 function buildUsage(): Usage {
-    const u = new Usage("usage: docktitude [help] <command> [<args>]\n\nCommands:");
+    const u = new Usage("usage: docktitude [-h | --help | help] <command> [<args>]\n\nCommands:");
     u.add(Command.build, "Build context Docker image. Use -f to force build", "context");
     u.add(Command.clean, "Remove exited Docker containers and useless images\nUse -v to remove the associated volumes");
     u.add(Command.config, "List auto-configured Docker images building tags");
