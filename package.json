@@ -33,7 +33,9 @@
     "dependencies",
     "build",
     "gitlab-ci",
-    "jenkins"
+    "jenkins",
+    "bamboo",
+    "tool",
   ],
   "author": {
     "name": "Docktitude",
