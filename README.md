@@ -1,6 +1,6 @@
 # Docktitude - A mastering Docker tool to enhance your docker experience
 
-![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "http://docktitude.io")
+![](https://raw.githubusercontent.com/docktitude/docktitude/master/docs/docktitude-logo.png "https://docktitude.com")
 
 Display Tree | Update | Snapshot your Docker images hierarchy and much more...
 
