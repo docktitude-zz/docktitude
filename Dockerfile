@@ -11,7 +11,7 @@
 #
 #
 FROM node:4.5.0
-MAINTAINER support@docktitude.io
+MAINTAINER support@docktitude.com
 
 ENV DEBIAN_FRONTEND noninteractive
 
